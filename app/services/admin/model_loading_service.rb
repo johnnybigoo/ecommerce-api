@@ -37,7 +37,7 @@ module Admin
     def set_pagination_attributes(total_filtered)
       total_pages = (total_filtered / @params[:length].to_f).ceil
       @pagination.merge!(page: @params[:page], length: @records.count, 
-                         total: total_filtered, total_pages: total_pages)
+                        total: total_filtered, total_pages: total_pages)
     end
   end
 end
