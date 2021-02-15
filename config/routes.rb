@@ -1,4 +1,4 @@
-Rails.application.routes.draw do
+ Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'auth/v1/user'
   
   namespace :admin, defaults: { format: :json } do
@@ -14,7 +14,7 @@ Rails.application.routes.draw do
       resources :users
     end
   end
-
+  # Class endpoint para home
   namespace :storefront do
     namespace :v1 do
       get "home" => "home#index"

@@ -1,3 +1,4 @@
+# Class endpoint para home
 module Storefront::V1
   class HomeController < ApplicationController
 

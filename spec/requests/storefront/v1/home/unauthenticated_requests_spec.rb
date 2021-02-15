@@ -1,3 +1,4 @@
+# Class endpoint para home
 require "rails_helper"
 
 RSpec.describe "Storefront V1 Home", type: :request do

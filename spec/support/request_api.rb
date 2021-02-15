@@ -1,3 +1,4 @@
+# Class endpoint para home
 module RequestAPI
   def body_json(symbolize_keys: false)
     json = JSON.parse(response.body)

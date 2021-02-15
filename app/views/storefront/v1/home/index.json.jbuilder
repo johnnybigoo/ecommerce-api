@@ -1,3 +1,4 @@
+# Class endpoint para home
 json.featured do
   json.array! @loader_service.featured do |product|
     json.(product, :id, :name, :description)
