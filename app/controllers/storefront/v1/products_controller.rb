@@ -1,3 +1,4 @@
+#Endpoint de Busca de Produtos
 module Storefront::V1
   class ProductsController < ApplicationController
 
@@ -5,7 +6,7 @@ module Storefront::V1
       @service = Storefront::ProductsFilterService.new(search_params)
       @service.call
     end
-
+    # Detalhes do Produto
     def show
       @product = Product.find(params[:id])
     end

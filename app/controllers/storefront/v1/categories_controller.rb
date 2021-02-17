@@ -1,3 +1,4 @@
+#Lista de Categorias
 module Storefront::V1
   class CategoriesController < ApplicationController
 

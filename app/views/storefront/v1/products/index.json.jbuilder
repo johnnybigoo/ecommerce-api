@@ -1,3 +1,4 @@
+#Endpoint de Busca de Produtos 
 json.products do
   json.array! @service.records do |product|
     json.(product, :id, :name, :description)
