@@ -1,3 +1,4 @@
+#Adicionar, Remover e Listar Produtos da WishList
 require 'rails_helper'
 
 RSpec.describe "Storefront V1 Categories as authenticated user", type: :request do
