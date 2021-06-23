@@ -8,6 +8,11 @@ RSpec.describe Order, type: :model do
       payment_accepted: 4, payment_denied: 5, finished: 6 
     })
   end
+
+  it { is_expected.to validate_numericality_of(:installments).only_integer.is_greater_than(0) }
+  it { is_expected.to have_many :line_items }
+  it { is_expected.to belong_to :user }
+  
   it { is_expected.to validate_presence_of(:subtotal) }
   it { is_expected.to validate_numericality_of(:subtotal).is_greater_than(0) }
   it { is_expected.to validate_presence_of(:total_amount) }
