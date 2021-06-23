@@ -5,5 +5,7 @@ FactoryBot.define do
     city { Faker::Address.city }
     state { Faker::Address.state_abbr }
     post_code { Faker::Address.postcode }
+    skip_create
+    initialize_with { new(**attributes) }
   end
 end
