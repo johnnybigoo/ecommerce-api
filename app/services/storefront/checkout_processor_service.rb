@@ -36,15 +36,17 @@ module Storefront
       return unless @params.has_key?(:coupon_id)
       @coupon = Coupon.find(@params[:coupon_id])
       @coupon.validate_use!
-      rescue Coupon::InvalidUse, ActiveRecord::RecordNotFound
+    rescue Coupon::InvalidUse, ActiveRecord::RecordNotFound
       @errors[:coupon] = I18n.t('storefront/checkout_processor_service.errors.coupon.invalid') 
     end
 
     def do_checkout
       create_order
-      rescue ActiveRecord::RecordInvalid => e
+    rescue ActiveRecord::RecordInvalid => e
       @errors.merge! e.record.errors.messages
-      @errors.merge!(address: e.record.address.errors.messages) if e.record.errors.has_key?(:address)
+      if e.record.errors.has_key?(:address)
+        @errors.merge!(address: e.record.address.errors.messages)
+      end 
     end
 
     def create_order
