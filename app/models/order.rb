@@ -1,6 +1,10 @@
 class Order < ApplicationRecord
   DAYS_TO_DUE = 7
 
+  attribute :address
+  attribute :card_hash
+  attribute :document
+
   belongs_to :user
   belongs_to :coupon, optional: true
   has_many :line_items
