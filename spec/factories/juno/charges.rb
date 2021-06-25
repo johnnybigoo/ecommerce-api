@@ -1,11 +1,11 @@
 FactoryBot.define do
   factory :juno_charge, class: 'Juno::Charge' do
-    key { "MyString" }
-    code { "MyString" }
-    number { "MyString" }
-    amount { "9.99" }
-    status { "MyString" }
-    billet_url { "MyString" }
-    order { nil }
+    key { "chr_#{Faker::Lorem.characters(number: 20) }" }
+    code { Faker::Number.number(digits: 20) }
+    sequence(:number) { |n| n }
+    amount { Faker::Commerce.price(range: 40..100) }
+    status { "ACTIVE" }
+    billet_url { Faker::Internet.url(host: 'pay.juno.com') }
+    order
   end
 end
