@@ -5,7 +5,7 @@ class CreateJunoCreditCardPayments < ActiveRecord::Migration[6.0]
       t.datetime :release_date
       t.string :status
       t.string :reason
-      t.references :charge, null: false, foreign_key: true
+      t.references :charge, null: false, foreign_key: { to_table: :juno_charges }
 
       t.timestamps
     end
