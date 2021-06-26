@@ -1,18 +1,18 @@
-class TestSingleton
-  private_class_method :new
+# class TestSingleton
+#   private_class_method :new
 
-  def self.singleton
-    @instance ||= self.new
-  end
+#   def self.singleton
+#     @instance ||= self.new
+#   end
 
-  private
+#   private
 
-  def initialize
-  end
-end
+#   def initialize
+#   end
+# end
 
-first = TestSingleton.singleton
-second = TestSingleton.singleton
+# first = TestSingleton.singleton
+# second = TestSingleton.singleton
 
-puts first.object_id
-puts second.object_id
+# puts first.object_id
+# puts second.object_id
