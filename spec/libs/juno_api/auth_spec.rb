@@ -1,5 +1,5 @@
 require "rails_helper"
-require_relative "../../../libs/juno_api/auth"
+require_relative "../../../lib/juno_api/auth"
 
 describe JunoApi::Auth do
   let(:auth_class) { JunoApi::Auth.clone }
