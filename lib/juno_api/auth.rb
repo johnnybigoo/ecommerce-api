@@ -33,11 +33,6 @@ module JunoApi
       end
     end
 
-    def self.is_about_to_expire?(instance)
-      expiration_rate = LIMIT_RATE_TO_RENEW / 100.0
-      instance.request_time + instance.expires_in * expiration_rate < Time.zone.now
-    end
-
     def initialize
       auth = process_auth!
       @access_token = auth['access_token']
@@ -55,6 +50,11 @@ module JunoApi
     def auth_token
       auth_data = Rails.application.credentials.juno.slice(:client, :secret)
       Base64.strict_encode64(auth_data[:client] + ":" + auth_data[:secret])
+    end
+
+    def self.is_about_to_expire?(instance)
+      expiration_rate = LIMIT_RATE_TO_RENEW / 100.0
+      instance.request_time + instance.expires_in * expiration_rate < Time.zone.now
     end
   end
 end
