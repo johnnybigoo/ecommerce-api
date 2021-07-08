@@ -22,7 +22,9 @@ Bundler.require(*Rails.groups)
 module EcommerceApi
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
+    config.autoload_paths += %W["#{config.root}/app/validators/"]
     config.load_defaults 6.0
+    config.active_job.queue_adapter = :sidekiq
 
     # I18n config
     config.i18n.load_path += Dir[Rails.root.join('config/locales/**/*.{rb,yml}')]
