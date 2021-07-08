@@ -3,8 +3,8 @@ module JunoApi
     include HTTParty
 
     PATH = "/authorization-server/oauth/token"
-    SECONDS_TO_WAIT_PROCESSING = 0.5
     LIMIT_RATE_TO_RENEW = 90
+    SECONDS_TO_WAIT_PROCESSING = 0.5
 
     base_uri "#{JUNO_AUTH_URL}"
 
