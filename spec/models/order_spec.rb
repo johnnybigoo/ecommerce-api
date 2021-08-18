@@ -2,14 +2,12 @@ require 'rails_helper'
 
 RSpec.describe Order, type: :model do
   it { is_expected.to validate_presence_of(:status).on(:update) }
-
   it do 
     is_expected.to define_enum_for(:status).with_values({ 
       processing_order: 1, processing_error: 2, waiting_payment: 3, 
       payment_accepted: 4, payment_denied: 5, finished: 6 
     })
   end
-
   it { is_expected.to validate_presence_of(:subtotal) }
   it { is_expected.to validate_numericality_of(:subtotal).is_greater_than(0) }
   it { is_expected.to validate_presence_of(:total_amount) }
@@ -55,14 +53,6 @@ RSpec.describe Order, type: :model do
       expect(subject.errors).to have_key(:card_hash)
     end
 
-    it "schedules a job for Juno charge creation after creation" do
-      order = build(:order)
-      order_params = { card_hash: order.card_hash, document: order.document, address: order.address.attributes }
-      expect do
-        order.save!
-      end.to have_enqueued_job(Juno::ChargeCreationJob).with(order, order_params)
-    end
-
     it "validates :address presence" do
       subject = build(:order, payment_type: :credit_card, address: nil)
       subject.validate
@@ -74,5 +64,29 @@ RSpec.describe Order, type: :model do
       subject.validate
       expect(subject.errors).to have_key(:address)
     end
+  end
+  
+  it "schedules a job for Juno charge creation after creation" do
+    order = build(:order)
+    order_params = { card_hash: order.card_hash, document: order.document, address: order.address.attributes }
+    expect do
+      order.save!
+    end.to have_enqueued_job(Juno::ChargeCreationJob).with(order, order_params)
+  end
+
+  it "call :line_item #ship! when receives :payment_accepted status" do
+    order = create(:order)
+    line_item = create(:line_item, order: order)
+    allow(order).to receive(:line_items).and_return([line_item])
+    expect(line_item).to receive(:ship!)
+    order.update!(status: :payment_accepted)
+  end
+
+  it "does not call :line_item #ship! when receives any other update" do
+    order = create(:order, status: :payment_accepted)
+    line_item = create(:line_item, order: order)
+    allow(order).to receive(:line_items).and_return([line_item])
+    expect(line_item).to_not receive(:ship!)
+    order.update!(subtotal: 30)
   end
 end
