@@ -364,6 +364,7 @@ RSpec.describe "Storefront V1 Home", type: :request do
       context "by release date" do
         let(:order_params) { { order: { release_date: 'desc' } } }
 
+        #Error at line 367 
         it "returns ordered products limited by default pagination" do
           get url, headers: unauthenticated_header, params: order_params
           general_products.sort! { |a, b| b[:release_date] <=> a[:release_date] }
